@@ -1,206 +1,64 @@
 <!DOCTYPE html>
-<html lang="en"> 
-<head> <meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudentHub - Add Student</title>
-
-<style>
-    * {
-        box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-        margin: 0;
-        background: #f6f3ff;
-        color: #29233d;
-    }
-
-    .navbar {
-        background: linear-gradient(135deg, #6d28d9, #8b5cf6);
-        color: white;
-        padding: 22px 7%;
-    }
-
-    .logo {
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-    .logo span {
-        color: #e9d5ff;
-    }
-
-    .container {
-        width: 90%;
-        max-width: 600px;
-        margin: 50px auto;
-    }
-
-    .card {
-        background: white;
-        padding: 35px;
-        border-radius: 18px;
-        box-shadow: 0 10px 30px rgba(91, 33, 182, 0.1);
-    }
-
-    .card h1 {
-        color: #3b1d6b;
-        margin-bottom: 8px;
-    }
-
-    .card p {
-        color: #8b819d;
-        margin-bottom: 30px;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 7px;
-        font-weight: bold;
-        color: #4c3b64;
-    }
-
-    input {
-        width: 100%;
-        padding: 13px;
-        border: 1px solid #ddd6fe;
-        border-radius: 9px;
-        outline: none;
-        font-size: 15px;
-    }
-
-    input:focus {
-        border-color: #7c3aed;
-        box-shadow: 0 0 0 3px #ede9fe;
-    }
-
-    .error {
-        background: #fee2e2;
-        color: #b91c1c;
-        padding: 12px;
-        border-radius: 9px;
-        margin-bottom: 20px;
-    }
-
-    .buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 25px;
-    }
-
-    .save-btn {
-        background: #6d28d9;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 9px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .save-btn:hover {
-        background: #5b21b6;
-    }
-
-    .back-btn {
-        background: #f3e8ff;
-        color: #6d28d9;
-        padding: 12px 20px;
-        border-radius: 9px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-</style>
-
-    </head> <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentHub - Add Student</title>
+    <style>
+        * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
+        body { margin: 0; background: #f5eee8; color: #493328; }
+        .navbar { min-height: 58px; display: flex; align-items: center; gap: 28px; padding: 0 28px; background: #4a2b1e; color: #fffaf6; }
+        .brand { display: flex; align-items: center; gap: 9px; margin-right: 14px; color: #fffaf6; font: bold 20px Georgia, serif; text-decoration: none; }
+        .nav-links { display: flex; align-self: stretch; gap: 4px; }
+        .nav-link { display: flex; align-items: center; padding: 0 15px; color: #eadbd1; font-size: 12px; text-decoration: none; }
+        .nav-link.active, .nav-link:hover { background: #603a29; color: #fff; }
+        .account { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+        .account-info { text-align: right; font-size: 11px; }
+        .account-info small { display: block; margin-top: 3px; color: #d9c5b7; font-size: 9px; }
+        .logout { padding: 7px 12px; border: 1px solid #a78a78; border-radius: 5px; background: transparent; color: #fffaf6; cursor: pointer; font-size: 10px; }
+        .container { width: min(92%, 650px); margin: 32px auto; }
+        .card { padding: 28px; border: 1px solid #eaded5; border-radius: 8px; background: #fffaf6; box-shadow: 0 4px 12px rgba(80, 43, 25, .07); }
+        h1 { margin: 0 0 5px; color: #382219; font: 26px Georgia, serif; }
+        .subtitle { margin: 0 0 24px; color: #8d7668; font-size: 11px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; color: #5a4032; font-size: 10px; font-weight: bold; }
+        input { width: 100%; padding: 11px; border: 1px solid #dfd5ce; border-radius: 6px; font-size: 12px; }
+        input:focus { outline: none; border-color: #805333; box-shadow: 0 0 0 3px #f0e3d8; }
+        .error { margin-bottom: 16px; padding: 10px; border-radius: 6px; background: #fbe1dd; color: #a33b2d; font-size: 11px; }
+        .buttons { display: flex; gap: 10px; margin-top: 23px; }
+        .save-btn, .back-btn { padding: 10px 16px; border-radius: 5px; font-size: 11px; font-weight: bold; text-decoration: none; cursor: pointer; }
+        .save-btn { border: 0; background: #70482f; color: white; }
+        .back-btn { background: #f0e4da; color: #70482f; }
+        @media (max-width: 700px) { .nav-links { display: none; } .account-info { display: none; } }
+    </style>
+</head>
+<body>
     <nav class="navbar">
-        <div class="logo">
-            Student<span>Hub</span>
+        <a class="brand" href="{{ route('students.index') }}">StudentHub</a>
+        <div class="nav-links">
+            <a class="nav-link" href="{{ route('students.index') }}">▦ Dashboard</a>
+            <a class="nav-link active" href="{{ route('students.create') }}">＋ Add Student</a>
+        </div>
+        <div class="account">
+            <div class="account-info">{{ auth()->user()->name }}</div>
+            <form action="{{ route('logout') }}" method="POST">@csrf<button class="logout" type="submit">⇥ Logout</button></form>
         </div>
     </nav>
-
-    <div class="container">
-
-        <div class="card">
-
+    <main class="container">
+        <section class="card">
             <h1>Add Student</h1>
-            <p>Enter the student's information below.</p>
-
+            <p class="subtitle">Enter the student's information below.</p>
             @if($errors->any())
-
-                <div class="error">
-                    <strong>Please fix the following:</strong>
-
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-
+                <div class="error">@foreach($errors->all() as $error)<div>{{ $error }}</div>@endforeach</div>
             @endif
-
             <form action="{{ route('students.store') }}" method="POST">
-
                 @csrf
-
-                <div class="form-group">
-                    <label>Name</label>
-
-                    <input
-                        type="text"
-                        name="name"
-                        value="{{ old('name') }}"
-                        placeholder="Enter student name"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label>Course</label>
-
-                    <input
-                        type="text"
-                        name="course"
-                        value="{{ old('course') }}"
-                        placeholder="Example: BSIT"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label>Subject</label>
-
-                    <input
-                        type="text"
-                        name="subject"
-                        value="{{ old('subject') }}"
-                        placeholder="Example: Web Development"
-                    >
-                </div>
-
-                <div class="buttons">
-
-                    <button type="submit" class="save-btn">
-                        Save Student
-                    </button>
-
-                    <a
-                        href="{{ route('students.index') }}"
-                        class="back-btn">
-                        Cancel
-                    </a>
-
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
+                <div class="form-group"><label for="name">Student Name</label><input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Enter student name" required autofocus></div>
+                <div class="form-group"><label for="course">Course</label><input id="course" type="text" name="course" value="{{ old('course') }}" placeholder="Example: BSIT" required></div>
+                <div class="form-group"><label for="subject">Subject</label><input id="subject" type="text" name="subject" value="{{ old('subject') }}" placeholder="Example: Web Development" required></div>
+                <div class="buttons"><button type="submit" class="save-btn">Save Student</button><a href="{{ route('students.index') }}" class="back-btn">Cancel</a></div>
+            </form>
+        </section>
+    </main>
 </body>
- </html>
+</html>
